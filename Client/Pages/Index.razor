@@ -1,0 +1,23 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@inject LineDC.Liff.ILiffClient Liff
+
+
+@code {
+    string ErrorMessage { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (!await Liff.InitializeAsync(JSRuntime))
+            {
+                return;
+            }
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = e.ToString();
+        }
+    }
+}
